@@ -1,13 +1,31 @@
+import { useState, useEffect, useRef } from "react";
+import A from "./components/A";
+import B from "./components/B";
+
 const App = () => {
+  const [isObserve, setIsObserve] = useState(false);
+
+  const bRef = useRef();
+  const observer = useRef();
+
+  useEffect(() => {
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        setIsObserve(entries[0].isIntersecting);
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.current.observe(bRef.current);
+
+    return () => observer.current.unobserve(bRef.current);
+  }, []);
+
   return (
-    <div className="bg-red-100 min-h-screen flex justify-center items-center">
-      <img
-        className="w-96 h-96
-        animate__animated animate__heartBeat"
-        src="./images/unicorn.png"
-        alt="unicorn"
-      />
-    </div>
+    <>
+      <A />
+      <B bRef={bRef} isObserve={isObserve} />
+    </>
   );
 };
 
