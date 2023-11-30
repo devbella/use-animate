@@ -1,16 +1,10 @@
-const B = ({ bRef, isObserve }) => {
+import ImageComp from "./ImageComp";
+
+const B = () => {
   return (
-    <div
-      ref={bRef}
-      className="bg-blue-100 min-h-screen flex flex-col justify-center items-center"
-    >
-      <img
-        className={`w-96 h-96 ${
-          isObserve && "animate__animated animate__bounce animate__infinite"
-        } `}
-        src="./images/unicorn.png"
-        alt="unicorn"
-      />
+    <div className="bg-green-100 min-h-screen flex flex-col justify-center items-center gap-20">
+      <ImageComp animateName="animate__bounce" image="unicorn.png" />
+      <ImageComp animateName="animate__rotateIn" image="unicorn2.png" />
     </div>
   );
 };
